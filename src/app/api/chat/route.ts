@@ -1,24 +1,19 @@
 import { NextResponse } from 'next/server'
 import OpenAI from 'openai'
-import { PineconeClient } from '@pinecone-database/pinecone'
+import { Pinecone } from '@pinecone-database/pinecone'
+import { getSystemPrompt } from '@/prompts/system-prompt'
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
-const pinecone = new PineconeClient()
+const pinecone = new Pinecone()
 
 export async function POST(request: Request) {
   try {
     const { message } = await request.json()
 
-    // Initialize Pinecone
-    await pinecone.init({
-      environment: process.env.PINECONE_ENVIRONMENT!,
-      apiKey: process.env.PINECONE_API_KEY!,
-    })
-
-    // Get relevant context from Pinecone
+    // Get the index
     const index = pinecone.Index(process.env.PINECONE_INDEX!)
     
     // Get embedding for the user's question
@@ -34,10 +29,16 @@ export async function POST(request: Request) {
       includeMetadata: true,
     })
 
-    // Construct context from similar documents
+    // Construct context and sources from similar documents
     const context = queryResponse.matches
       .map(match => match.metadata?.text)
       .join('\n\n')
+
+    const sources = queryResponse.matches.map(match => ({
+      name: match.metadata?.document || 'Unknown Document',
+      url: match.metadata?.source || '#',
+      relevance: match.score || 0
+    })).filter(source => source.relevance > 0.7) // Only include relevant sources
 
     // Generate response using OpenAI
     const completion = await openai.chat.completions.create({
@@ -45,10 +46,7 @@ export async function POST(request: Request) {
       messages: [
         {
           role: "system",
-          content: `You are an AI legal assistant specialized in EU law. Use the following context to answer questions accurately. If you're unsure or the context doesn't provide enough information, say so.
-
-Context:
-${context}`
+          content: getSystemPrompt(context)
         },
         {
           role: "user",
@@ -59,6 +57,7 @@ ${context}`
 
     return NextResponse.json({
       response: completion.choices[0].message.content,
+      sources,
     })
   } catch (error) {
     console.error('Error:', error)

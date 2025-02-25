@@ -1,7 +1,81 @@
 # EU-Lens Project Documentation
 
 ## Project Overview
-EU-Lens is an AI-powered legal assistant for EU law queries, using vector search and GPT-4 for accurate responses.
+EU-Lens is a Next.js application that provides an AI-powered legal assistant specialized in EU law. The application uses OpenAI's GPT-4 for natural language processing and Pinecone for vector similarity search to provide accurate responses based on legal documents.
+
+## Technical Stack
+- Next.js 14.1.0
+- TypeScript
+- OpenAI API (GPT-4 and text-embedding-ada-002)
+- Pinecone Vector Database
+- Tailwind CSS
+
+## Key Components
+
+### RAG System
+The application implements a Retrieval-Augmented Generation (RAG) system:
+1. Document Processing
+   - Legal documents are chunked and embedded
+   - Embeddings are stored in Pinecone vector database
+   - Each chunk maintains metadata about its source
+
+2. Query Processing
+   - User questions are embedded using the same model
+   - Similar document chunks are retrieved from Pinecone
+   - Retrieved context is used to generate responses
+   - Source documents are tracked and displayed to users
+
+3. Response Generation
+   - Uses a carefully crafted system prompt
+   - Combines retrieved context with GPT-4's capabilities
+   - Provides source attribution for transparency
+
+### API Routes
+- `/api/chat`: Handles chat interactions, combining document context from Pinecone with OpenAI's GPT-4
+- Document ingestion script for processing and storing legal documents
+
+### System Prompt
+Located in `src/prompts/system-prompt.ts`, the system prompt:
+- Defines the AI's role and expertise
+- Sets guidelines for response structure
+- Establishes tone and language requirements
+- Handles different types of legal queries
+- Maintains transparency about AI limitations
+
+### Environment Variables
+Required environment variables:
+- `OPENAI_API_KEY`: OpenAI API key
+- `PINECONE_API_KEY`: Pinecone API key
+- `PINECONE_ENVIRONMENT`: Pinecone environment
+- `PINECONE_INDEX`: Pinecone index name
+
+## Recent Changes
+1. Implemented source attribution in chat responses
+2. Added a comprehensive system prompt
+3. Enhanced the RAG system with better context handling
+4. Updated UI to display source documents
+5. Improved response quality with structured guidelines
+
+## Current Status
+- Development server running on http://localhost:3000
+- OpenAI and Pinecone connections working
+- Chat functionality with source attribution
+- Document ingestion system in place
+- Comprehensive system prompt implemented
+
+## Next Steps
+1. Test the RAG system with various legal queries
+2. Ingest more EU legal documents
+3. Implement source document caching
+4. Add document relevance scoring
+5. Improve source attribution display
+
+## Git Repository
+The project is version controlled using Git, with the following structure:
+- Initial setup and configuration
+- Module fixes and TypeScript updates
+- RAG system implementation
+- UI improvements and source attribution
 
 ## Initial Setup
 

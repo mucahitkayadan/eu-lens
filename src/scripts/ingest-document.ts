@@ -1,10 +1,10 @@
-const { Command } = require('commander')
-const { Pinecone } = require('@pinecone-database/pinecone')
-const OpenAI = require('openai')
-const axios = require('axios')
-const dotenv = require('dotenv')
-const path = require('path')
-const fs = require('fs')
+import { Command } from 'commander'
+import { Pinecone } from '@pinecone-database/pinecone'
+import OpenAI from 'openai'
+import axios from 'axios'
+import * as dotenv from 'dotenv'
+import * as path from 'path'
+import * as fs from 'fs'
 
 // Load environment variables from .env.local
 const envPath = path.join(process.cwd(), '.env.local')
@@ -33,10 +33,17 @@ interface DocumentMetadata {
   lastUpdated: string
 }
 
+interface DocumentRegistry {
+  url: string
+  name: string
+  addedAt: string
+  lastUpdated: string
+}
+
 // Function to chunk text into smaller pieces
-function chunkText(text, maxChunkSize = 1000) {
+function chunkText(text: string, maxChunkSize: number = 1000): string[] {
   const sentences = text.match(/[^.!?]+[.!?]+/g) || []
-  const chunks = []
+  const chunks: string[] = []
   let currentChunk = ''
 
   for (const sentence of sentences) {
@@ -53,7 +60,7 @@ function chunkText(text, maxChunkSize = 1000) {
 }
 
 // Function to fetch document content
-async function fetchDocument(url) {
+async function fetchDocument(url: string): Promise<string | null> {
   try {
     const response = await axios.get(url)
     return response.data
@@ -64,7 +71,7 @@ async function fetchDocument(url) {
 }
 
 // Function to create embedding
-async function createEmbedding(text) {
+async function createEmbedding(text: string): Promise<number[]> {
   const response = await openai.embeddings.create({
     model: "text-embedding-ada-002",
     input: text,
@@ -73,9 +80,9 @@ async function createEmbedding(text) {
 }
 
 // Function to update document registry
-function updateDocumentRegistry(metadata) {
+function updateDocumentRegistry(metadata: DocumentMetadata): void {
   const registryPath = path.join(process.cwd(), 'data', 'document-registry.json')
-  let registry = []
+  let registry: DocumentRegistry[] = []
 
   // Create data directory if it doesn't exist
   const dataDir = path.join(process.cwd(), 'data')
@@ -100,11 +107,11 @@ function updateDocumentRegistry(metadata) {
   fs.writeFileSync(registryPath, JSON.stringify(registry, null, 2))
 }
 
-async function ingestDocument(url, name, force = false) {
+async function ingestDocument(url: string, name: string, force: boolean = false): Promise<void> {
   console.log(`Starting ingestion of document: ${name}`)
 
   const pc = new Pinecone()
-  const index = pc.index(process.env.PINECONE_INDEX)
+  const index = pc.index(process.env.PINECONE_INDEX!)
 
   // Fetch document content
   const content = await fetchDocument(url)
@@ -141,7 +148,7 @@ async function ingestDocument(url, name, force = false) {
   }
 
   // Update document registry
-  const metadata = {
+  const metadata: DocumentMetadata = {
     name,
     url,
     addedAt: new Date().toISOString(),
@@ -150,6 +157,12 @@ async function ingestDocument(url, name, force = false) {
   updateDocumentRegistry(metadata)
 
   console.log(`Successfully processed document: ${name}`)
+}
+
+interface CommandOptions {
+  url: string
+  name: string
+  force: boolean
 }
 
 // Set up CLI
@@ -161,7 +174,7 @@ program
   .requiredOption('-u, --url <url>', 'URL of the document to ingest')
   .requiredOption('-n, --name <name>', 'Name of the document')
   .option('-f, --force', 'Force update even if document exists', false)
-  .action(async (options) => {
+  .action(async (options: CommandOptions) => {
     try {
       await ingestDocument(options.url, options.name, options.force)
     } catch (error) {
