@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { PaperAirplaneIcon, ArrowPathIcon, BookmarkIcon, ShareIcon, DocumentTextIcon } from '@heroicons/react/24/solid'
+import { PaperAirplaneIcon, ArrowPathIcon, BookmarkIcon, ShareIcon, DocumentTextIcon, XMarkIcon, ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid'
 import { UserCircleIcon } from '@heroicons/react/24/outline'
 import ReactMarkdown from 'react-markdown'
 
@@ -9,6 +9,7 @@ interface Source {
   name: string
   url: string
   relevance: number
+  text?: string
 }
 
 interface Message {
@@ -22,6 +23,7 @@ export function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const [selectedSource, setSelectedSource] = useState<Source | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -65,6 +67,11 @@ export function ChatInterface() {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  const handleSourceClick = (e: React.MouseEvent, source: Source) => {
+    e.preventDefault()
+    setSelectedSource(source)
   }
 
   return (
@@ -181,15 +188,13 @@ export function ChatInterface() {
                       </div>
                       <div className="space-y-1">
                         {message.sources.map((source, idx) => (
-                          <a
+                          <button
                             key={idx}
-                            href={source.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="block text-xs text-primary hover:text-secondary"
+                            onClick={(e) => handleSourceClick(e, source)}
+                            className="block text-xs text-primary hover:text-secondary text-left w-full"
                           >
                             {source.name} ({Math.round(source.relevance * 100)}% match)
-                          </a>
+                          </button>
                         ))}
                       </div>
                     </div>
@@ -233,6 +238,47 @@ export function ChatInterface() {
           </button>
         </form>
       </div>
+
+      {/* Source Preview Popup */}
+      {selectedSource && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] flex flex-col">
+            <div className="flex items-center justify-between p-4 border-b">
+              <h3 className="text-lg font-semibold text-primary">{selectedSource.name}</h3>
+              <div className="flex items-center space-x-2">
+                <a
+                  href={selectedSource.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:text-secondary"
+                >
+                  <ArrowTopRightOnSquareIcon className="h-5 w-5" />
+                </a>
+                <button
+                  onClick={() => setSelectedSource(null)}
+                  className="text-gray-500 hover:text-gray-700"
+                >
+                  <XMarkIcon className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+            <div className="p-4 overflow-y-auto flex-1">
+              <div className="prose prose-sm max-w-none">
+                <p className="text-sm text-gray-600 mb-4">
+                  Relevance: {Math.round(selectedSource.relevance * 100)}% match
+                </p>
+                {selectedSource.text ? (
+                  <div className="bg-gray-50 p-4 rounded-lg">
+                    {selectedSource.text}
+                  </div>
+                ) : (
+                  <p className="text-gray-500 italic">Source text not available</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 } 

@@ -37,12 +37,13 @@ export async function POST(request: Request) {
     const sources = queryResponse.matches.map(match => ({
       name: match.metadata?.document || 'Unknown Document',
       url: match.metadata?.source || '#',
-      relevance: match.score || 0
+      relevance: match.score || 0,
+      text: match.metadata?.text || null
     })).filter(source => source.relevance > 0.7) // Only include relevant sources
 
     // Generate response using OpenAI
     const completion = await openai.chat.completions.create({
-      model: "gpt-4-turbo-preview",
+      model: "gpt-4o",
       messages: [
         {
           role: "system",
