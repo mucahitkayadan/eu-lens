@@ -50,11 +50,12 @@ Required environment variables:
 - `PINECONE_INDEX`: Pinecone index name
 
 ## Recent Changes
-1. Implemented source attribution in chat responses
-2. Added a comprehensive system prompt
-3. Enhanced the RAG system with better context handling
-4. Updated UI to display source documents
-5. Improved response quality with structured guidelines
+1. Fixed user message text visibility by ensuring white text color
+2. Implemented source attribution in chat responses
+3. Added a comprehensive system prompt
+4. Enhanced the RAG system with better context handling
+5. Updated UI to display source documents
+6. Improved response quality with structured guidelines
 
 ## Current Status
 - Development server running on http://localhost:3000

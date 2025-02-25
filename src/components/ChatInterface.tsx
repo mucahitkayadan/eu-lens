@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { PaperAirplaneIcon, ArrowPathIcon, BookmarkIcon, ShareIcon, DocumentTextIcon } from '@heroicons/react/24/solid'
 import { UserCircleIcon } from '@heroicons/react/24/outline'
+import ReactMarkdown from 'react-markdown'
 
 interface Source {
   name: string
@@ -122,11 +123,51 @@ export function ChatInterface() {
                 <div
                   className={`rounded-lg p-3 ${
                     message.role === 'user'
-                      ? 'bg-primary text-white'
+                      ? 'bg-primary text-white prose-p:text-white prose-headings:text-white prose-strong:text-white prose-em:text-white'
                       : 'bg-white text-gray-800 shadow-sm'
                   }`}
                 >
-                  <div className="text-sm">{message.content}</div>
+                  <div className={`text-sm prose prose-sm max-w-none ${message.role === 'user' ? 'text-white prose-headings:text-white prose-p:text-white prose-strong:text-white prose-em:text-white' : ''}`}>
+                    {message.role === 'user' ? (
+                      message.content
+                    ) : (
+                      <ReactMarkdown
+                        components={{
+                          h1: ({ children }) => <h1 className="text-lg font-bold mb-2">{children}</h1>,
+                          h2: ({ children }) => <h2 className="text-base font-semibold mb-2">{children}</h2>,
+                          h3: ({ children }) => <h3 className="text-sm font-semibold mb-1">{children}</h3>,
+                          p: ({ children }) => <p className="mb-2 last:mb-0">{children}</p>,
+                          ul: ({ children }) => <ul className="list-disc list-inside mb-2">{children}</ul>,
+                          ol: ({ children }) => <ol className="list-decimal list-inside mb-2">{children}</ol>,
+                          li: ({ children }) => <li className="mb-1">{children}</li>,
+                          a: ({ href, children }) => (
+                            <a href={href} className="text-primary hover:text-secondary underline" target="_blank" rel="noopener noreferrer">
+                              {children}
+                            </a>
+                          ),
+                          code: ({ children }) => (
+                            <code className="bg-gray-100 px-1 py-0.5 rounded text-sm font-mono">
+                              {children}
+                            </code>
+                          ),
+                          pre: ({ children }) => (
+                            <pre className="bg-gray-100 p-2 rounded-md overflow-x-auto mb-2">
+                              {children}
+                            </pre>
+                          ),
+                          blockquote: ({ children }) => (
+                            <blockquote className="border-l-4 border-gray-200 pl-4 italic mb-2">
+                              {children}
+                            </blockquote>
+                          ),
+                          strong: ({ children }) => <strong className="font-semibold">{children}</strong>,
+                          em: ({ children }) => <em className="italic">{children}</em>,
+                        }}
+                      >
+                        {message.content}
+                      </ReactMarkdown>
+                    )}
+                  </div>
                   {message.timestamp && (
                     <div className={`text-xs mt-1 ${message.role === 'user' ? 'text-blue-100' : 'text-gray-400'}`}>
                       {message.timestamp.toLocaleTimeString()}
