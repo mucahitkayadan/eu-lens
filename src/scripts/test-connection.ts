@@ -1,8 +1,8 @@
-const { Pinecone } = require('@pinecone-database/pinecone')
-const OpenAI = require('openai')
-const dotenv = require('dotenv')
-const path = require('path')
-const fs = require('fs')
+import { Pinecone } from '@pinecone-database/pinecone'
+import OpenAI from 'openai'
+import * as dotenv from 'dotenv'
+import * as path from 'path'
+import * as fs from 'fs'
 
 // Load environment variables from .env.local
 const envPath = path.join(process.cwd(), '.env.local')
@@ -30,7 +30,7 @@ async function testConnections() {
     const openai = new OpenAI({
       apiKey: process.env.OPENAI_API_KEY,
     })
-    const response = await openai.embeddings.create({
+    await openai.embeddings.create({
       model: "text-embedding-ada-002",
       input: "Test connection",
     })

@@ -107,7 +107,7 @@ function updateDocumentRegistry(metadata: DocumentMetadata): void {
   fs.writeFileSync(registryPath, JSON.stringify(registry, null, 2))
 }
 
-async function ingestDocument(url: string, name: string, force: boolean = false): Promise<void> {
+async function ingestDocument(url: string, name: string): Promise<void> {
   console.log(`Starting ingestion of document: ${name}`)
 
   const pc = new Pinecone()
@@ -162,7 +162,6 @@ async function ingestDocument(url: string, name: string, force: boolean = false)
 interface CommandOptions {
   url: string
   name: string
-  force: boolean
 }
 
 // Set up CLI
@@ -173,10 +172,9 @@ program
   .description('Ingest a document into the EU-Lens vector database')
   .requiredOption('-u, --url <url>', 'URL of the document to ingest')
   .requiredOption('-n, --name <name>', 'Name of the document')
-  .option('-f, --force', 'Force update even if document exists', false)
   .action(async (options: CommandOptions) => {
     try {
-      await ingestDocument(options.url, options.name, options.force)
+      await ingestDocument(options.url, options.name)
     } catch (error) {
       console.error('Error during document ingestion:', error)
       process.exit(1)

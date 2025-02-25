@@ -105,7 +105,7 @@ export function ChatInterface() {
             <div className="p-4 bg-white rounded-lg shadow-sm max-w-md">
               <h3 className="font-semibold text-primary mb-2">Welcome to EU-Lens!</h3>
               <p className="text-sm">
-                I'm your AI legal assistant specialized in EU law. You can ask me about:
+                I&apos;m your AI legal assistant specialized in EU law. You can ask me about:
               </p>
               <ul className="text-sm mt-2 space-y-1">
                 <li>• GDPR and data protection</li>
