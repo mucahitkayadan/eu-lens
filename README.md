@@ -31,7 +31,7 @@ EU-Lens is an AI-powered legal assistant that helps users understand and navigat
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/eu-lens.git
+   git clone https://github.com/mucahitkayadan/eu-lens.git
    cd eu-lens
    ```
 
