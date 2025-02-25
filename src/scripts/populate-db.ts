@@ -1,4 +1,4 @@
-import { PineconeClient } from '@pinecone-database/pinecone'
+import { Pinecone } from '@pinecone-database/pinecone'
 import OpenAI from 'openai'
 import axios from 'axios'
 import * as dotenv from 'dotenv'
@@ -9,7 +9,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 })
 
-const pinecone = new PineconeClient()
+const pinecone = new Pinecone()
 
 // List of important EU law documents to index
 const documents = [
@@ -39,12 +39,7 @@ async function createEmbedding(text: string) {
 }
 
 async function main() {
-  // Initialize Pinecone
-  await pinecone.init({
-    environment: process.env.PINECONE_ENVIRONMENT!,
-    apiKey: process.env.PINECONE_API_KEY!,
-  })
-
+  // Get the index
   const index = pinecone.Index(process.env.PINECONE_INDEX!)
 
   for (const doc of documents) {
@@ -59,17 +54,15 @@ async function main() {
     for (const [i, chunk] of chunks.entries()) {
       const embedding = await createEmbedding(chunk)
       
-      await index.upsert({
-        vectors: [{
-          id: `${doc.name}-${i}`,
-          values: embedding,
-          metadata: {
-            text: chunk,
-            source: doc.url,
-            document: doc.name,
-          },
-        }],
-      })
+      await index.upsert([{
+        id: `${doc.name}-${i}`,
+        values: embedding,
+        metadata: {
+          text: chunk,
+          source: doc.url,
+          document: doc.name,
+        },
+      }])
     }
 
     console.log(`Finished processing ${doc.name}`)

@@ -184,7 +184,7 @@ npm run ingest-doc -- --url "http://data.europa.eu/eli/reg/2016/679" --name "GDP
 
 ### Continuous Deployment with GitHub Actions
 
-The project is configured with GitHub Actions for automatic deployment to Vercel. Every push to the main/master branch triggers code quality checks and deployment.
+The project is configured with GitHub Actions for automatic deployment to Vercel. Every push to the master branch triggers a comprehensive CI/CD pipeline.
 
 1. **Required Secrets**
    Set up the following secrets in your GitHub repository:
@@ -203,22 +203,33 @@ The project is configured with GitHub Actions for automatic deployment to Vercel
    vercel link
    ```
 
-3. **Workflow Steps**
-   - Code Quality Checks:
+3. **CI/CD Pipeline Steps**
+   - Code Quality Checks (Lint Job):
      - ESLint for code style and potential errors
      - TypeScript type checking
-     - Must pass before deployment
-   - Deployment:
-     - Push to main/master triggers deployment
-     - Pull requests get preview deployments
-     - Automatic environment variable sync
+     - Duplicate dependency detection
+     - Security vulnerability scanning
+   - Testing (Test Job):
+     - Unit tests (when available)
+     - Integration tests (when available)
+   - Deployment (Deploy Job):
+     - Automatic on master branch pushes
+     - Preview deployments for pull requests
+     - Environment variable sync
      - Build cache for faster deployments
 
 4. **Quality Standards**
-   - ESLint rules enforced
+   - ESLint rules enforced (with warnings)
    - TypeScript strict mode enabled
-   - No deployment if checks fail
-   - PR checks for code quality
+   - Security vulnerabilities monitored
+   - Dependency duplication checked
+   - Test coverage tracked (when tests are added)
+
+5. **Error Handling**
+   - Non-critical errors don't block deployment
+   - All issues are reported in GitHub Actions UI
+   - Security vulnerabilities are logged
+   - Type errors are documented but don't prevent deployment during development
 
 ### Vercel Deployment (Manual)
 
