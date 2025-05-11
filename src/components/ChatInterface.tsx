@@ -103,16 +103,18 @@ export function ChatInterface() {
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-gray-500 space-y-4">
             <div className="p-4 bg-white rounded-lg shadow-sm max-w-md">
-              <h3 className="font-semibold text-primary mb-2">Welcome to Caral!</h3>
-              <p className="text-sm">
-                I&apos;m your AI legal assistant specialized in EU law. You can ask me about:
+              <h3 className="font-semibold text-primary mb-2">Welcome to CARAL</h3>
+              <p className="text-sm mb-2">
+                We&apos;re here to help your business navigate data protection, data governance, and responsible data practices. You can ask us about:
               </p>
-              <ul className="text-sm mt-2 space-y-1">
-                <li>• GDPR and data protection</li>
-                <li>• EU regulations and directives</li>
-                <li>• Legal compliance requirements</li>
-                <li>• Recent EU legal developments</li>
+              <ul className="list-disc list-inside text-sm mt-2 space-y-1">
+                <li>GDPR and data protection</li>
+                <li>EU data governance</li>
+                <li>Privacy compliance</li>
               </ul>
+              <p className="text-sm mt-2">
+                Ask your question — and get practical, privacy-focused answers built for your business.
+              </p>
             </div>
           </div>
         ) : (

@@ -69,6 +69,8 @@ Required environment variables:
 7. Improved response quality with structured guidelines
 8. Updated homepage H1 and introductory paragraph in `src/app/page.tsx`.
 9. Fixed ESLint `react/no-unescaped-entities` error in `src/app/page.tsx` by escaping an apostrophe.
+10. Reverted homepage H1 and introductory paragraph in `src/app/page.tsx` to a single H1 statement: "Get instant answers to your EU Privacy & Data Governance questions powered by AI and backed by official sources and experts".
+11. Updated the default welcome message in `src/components/ChatInterface.tsx` to align with new branding and focus.
 
 ## Current Status
 - Development server running on http://localhost:3000
