@@ -67,6 +67,7 @@ Required environment variables:
 5. Enhanced the RAG system with better context handling
 6. Updated UI to display source documents
 7. Improved response quality with structured guidelines
+8. Updated homepage H1 and introductory paragraph in `src/app/page.tsx`.
 
 ## Current Status
 - Development server running on http://localhost:3000
@@ -326,4 +327,25 @@ The project is configured with GitHub Actions for automatic deployment to Vercel
 4. **Security Checks**
    - Verify CORS settings
    - Check rate limiting
-   - Monitor for unusual activity 
+   - Monitor for unusual activity
+
+## Firebase Setup
+
+### Client-Side (Frontend)
+
+- Firebase client SDK is initialized in `src/lib/firebaseClient.ts`.
+- This file exports `app`, `auth`, `db` (Firestore), and `storage` instances for use in the frontend application.
+- The configuration is loaded from environment variables prefixed with `NEXT_PUBLIC_FIREBASE_` (e.g., `NEXT_PUBLIC_FIREBASE_API_KEY`) defined in `.env.local`.
+- To use Firebase services (like Auth, Firestore) in your components, import them from `src/lib/firebaseClient.ts`.
+  ```typescript
+  import { auth } from '@/lib/firebaseClient';
+  // Then use auth.signInWithEmailAndPassword(...), etc.
+  ```
+
+### Server-Side (Backend/Admin)
+
+- The service account key for Firebase Admin SDK was initially in `caral-f22be-firebase-adminsdk-fbsvc-809a165606.json`.
+- **IMPORTANT SECURITY NOTE:** This file contains sensitive credentials. It SHOULD NOT be committed to your repository. 
+- Instead, the content of this JSON file should be stored in an environment variable (e.g., `FIREBASE_ADMIN_SDK_CONFIG`) in your `.env.local` file for local development and in your hosting provider's environment variable settings (e.g., Vercel) for deployment.
+- This key is used to initialize the Firebase Admin SDK in backend environments (e.g., Next.js API routes) for privileged operations.
+- **Note:** This file contains sensitive credentials and should be kept secure and ideally not committed to public repositories (use environment variables or a secure secret management solution in production). For Vercel deployments, this can be added as an environment variable. 
