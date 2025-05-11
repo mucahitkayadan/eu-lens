@@ -73,6 +73,7 @@ Required environment variables:
 11. Updated the default welcome message in `src/components/ChatInterface.tsx` to align with new branding and focus.
 12. Updated 'Outside' text (`src/app/page.tsx`): H1 to "WELCOME TO CARAL!" (blue) and added a smaller paragraph below it.
 13. Updated 'Inside' text (`src/components/ChatInterface.tsx`): Changed the final paragraph of the initial chat message to be bolder and bigger, with revised text.
+14. Modified initial chat message in `src/components/ChatInterface.tsx`: Removed "Welcome to CARAL" heading and reordered introductory paragraphs and list.
 
 ## Current Status
 - Development server running on http://localhost:3000
