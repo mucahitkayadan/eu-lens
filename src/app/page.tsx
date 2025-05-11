@@ -33,20 +33,7 @@ export default function Home() {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
         <header className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-primary mb-2">Welcome to CARAL</h1>
-          <div className="text-lg text-gray-600 max-w-2xl mx-auto">
-            <p className="mb-2">
-              We&apos;re here to help your business navigate data protection, data governance, and responsible data practices. You can ask us about:
-            </p>
-            <ul className="list-disc list-inside mb-2 text-left">
-              <li>GDPR and data protection</li>
-              <li>EU data governance</li>
-              <li>Privacy compliance</li>
-            </ul>
-            <p>
-              Ask your question — and get practical, privacy-focused answers built for your business.
-            </p>
-          </div>
+          <h1 className="text-4xl font-bold text-primary mb-2">Get instant answers to your EU Privacy & Data Governance questions powered by AI and backed by official sources and experts</h1>
         </header>
         
         <div className="max-w-5xl mx-auto">
