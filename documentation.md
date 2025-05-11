@@ -66,14 +66,17 @@ Required environment variables:
 4. Added a comprehensive system prompt
 5. Enhanced the RAG system with better context handling
 6. Updated UI to display source documents
-7. Improved response quality with structured guidelines
-8. Updated homepage H1 and introductory paragraph in `src/app/page.tsx`.
-9. Fixed ESLint `react/no-unescaped-entities` error in `src/app/page.tsx` by escaping an apostrophe.
-10. Reverted homepage H1 and introductory paragraph in `src/app/page.tsx` to a single H1 statement: "Get instant answers to your EU Privacy & Data Governance questions powered by AI and backed by official sources and experts".
-11. Updated the default welcome message in `src/components/ChatInterface.tsx` to align with new branding and focus.
-12. Updated 'Outside' text (`src/app/page.tsx`): H1 to "WELCOME TO CARAL!" (blue) and added a smaller paragraph below it.
-13. Updated 'Inside' text (`src/components/ChatInterface.tsx`): Changed the final paragraph of the initial chat message to be bolder and bigger, with revised text.
-14. Modified initial chat message in `src/components/ChatInterface.tsx`: Removed "Welcome to CARAL" heading and reordered introductory paragraphs and list.
+7. Updated homepage H1 and introductory paragraph in `src/app/page.tsx`.
+8. Fixed ESLint `react/no-unescaped-entities` error in `src/app/page.tsx` by escaping an apostrophe.
+9. Reverted homepage H1 and introductory paragraph in `src/app/page.tsx` to a single H1 statement: "Get instant answers to your EU Privacy & Data Governance questions powered by AI and backed by official sources and experts".
+10. Updated the default welcome message in `src/components/ChatInterface.tsx` to align with new branding and focus.
+11. Updated 'Outside' text (`src/app/page.tsx`): H1 to "WELCOME TO CARAL!" (blue) and added a smaller paragraph below it.
+12. Updated 'Inside' text (`src/components/ChatInterface.tsx`): Changed the final paragraph of the initial chat message to be bolder and bigger, with revised text.
+13. Modified initial chat message in `src/components/ChatInterface.tsx`: Removed "Welcome to CARAL" heading and reordered introductory paragraphs and list.
+14. Implemented Firebase Google Sign-In:
+    - Added `firebase/auth` functions (`GoogleAuthProvider`, `signInWithPopup`, `signOut`, `onAuthStateChanged`) to `src/app/page.tsx`.
+    - Handles user sign-in, sign-out, and displays user's display name or email.
+    - Shows a loading state while checking authentication status.
 
 ## Current Status
 - Development server running on http://localhost:3000
@@ -81,6 +84,7 @@ Required environment variables:
 - Chat functionality with source attribution
 - Document ingestion system in place
 - Comprehensive system prompt implemented
+- Firebase Google Sign-In implemented on the homepage.
 
 ## Next Steps
 1. Test the RAG system with various legal queries
@@ -127,6 +131,8 @@ PINECONE_INDEX=your_pinecone_index
 ### Frontend
 - Next.js 14 with TypeScript
 - React components for chat interface
+  - `src/app/page.tsx` (Client Component for homepage and Firebase Auth)
+  - `src/components/ChatInterface.tsx` (Client Component for chat functionality)
 - Tailwind CSS for styling
 
 ### Backend
@@ -134,6 +140,7 @@ PINECONE_INDEX=your_pinecone_index
 - OpenAI GPT-4 for response generation
 - Pinecone for vector similarity search
 - Document ingestion system for EU legal texts
+- **Google Sign-In**: Implemented in `src/app/page.tsx` (now a Client Component) using `signInWithPopup` with `GoogleAuthProvider`. It also handles user state and displays user information or a sign-in button accordingly.
 
 ### Data Flow
 1. Documents are processed and stored as embeddings in Pinecone
@@ -345,8 +352,9 @@ The project is configured with GitHub Actions for automatic deployment to Vercel
 - To use Firebase services (like Auth, Firestore) in your components, import them from `src/lib/firebaseClient.ts`.
   ```typescript
   import { auth } from '@/lib/firebaseClient';
-  // Then use auth.signInWithEmailAndPassword(...), etc.
+  // Then use auth.signInWithEmailAndPassword(...), auth.onAuthStateChanged(...), etc.
   ```
+- **Google Sign-In**: Implemented in `src/app/page.tsx` (now a Client Component) using `signInWithPopup` with `GoogleAuthProvider`. It also handles user state and displays user information or a sign-in button accordingly.
 
 ### Server-Side (Backend/Admin)
 

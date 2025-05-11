@@ -1,7 +1,51 @@
+"use client";
+
 import { ChatInterface } from '@/components/ChatInterface'
 import { ScaleIcon, BookOpenIcon, UserCircleIcon, AcademicCapIcon } from '@heroicons/react/24/outline'
+import { useEffect, useState } from 'react';
+import { auth } from '@/lib/firebaseClient';
+import { GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged, User } from 'firebase/auth';
 
 export default function Home() {
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [loadingAuth, setLoadingAuth] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+      setLoadingAuth(false);
+    });
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []);
+
+  const handleSignIn = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      // onAuthStateChanged will handle setting the user
+    } catch (error) {
+      console.error("Error signing in with Google: ", error);
+    }
+  };
+
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      // onAuthStateChanged will handle setting the user to null
+    } catch (error) {
+      console.error("Error signing out: ", error);
+    }
+  };
+
+  if (loadingAuth) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p>Loading authentication state...</p>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
       {/* Navigation Bar */}
@@ -21,10 +65,26 @@ export default function Home() {
                 <AcademicCapIcon className="h-5 w-5" />
                 <span>Learn</span>
               </a>
-              <button className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition-colors flex items-center space-x-1">
-                <UserCircleIcon className="h-5 w-5" />
-                <span>Sign In</span>
-              </button>
+              {currentUser ? (
+                <>
+                  <span className="text-gray-700">Welcome, {currentUser.displayName || currentUser.email}</span>
+                  <button 
+                    onClick={handleSignOut}
+                    className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition-colors flex items-center space-x-1"
+                  >
+                    <UserCircleIcon className="h-5 w-5" />
+                    <span>Sign Out</span>
+                  </button>
+                </>
+              ) : (
+                <button 
+                  onClick={handleSignIn}
+                  className="bg-primary text-white px-4 py-2 rounded-lg hover:bg-secondary transition-colors flex items-center space-x-1"
+                >
+                  <UserCircleIcon className="h-5 w-5" />
+                  <span>Sign In</span>
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -53,7 +113,7 @@ export default function Home() {
           <div className="bg-white p-6 rounded-lg shadow-sm">
             <AcademicCapIcon className="h-8 w-8 text-primary mb-4" />
             <h3 className="text-lg font-semibold mb-2">Expert Analysis</h3>
-            <p className="text-gray-600">Get AI-powered insights based on the latest EU legal frameworks.</p>
+            <p className="text-gray-600">Work with your chosen advisor alongside AI for a comprehensive and efficient outcome.</p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-sm">
             <ScaleIcon className="h-8 w-8 text-primary mb-4" />
