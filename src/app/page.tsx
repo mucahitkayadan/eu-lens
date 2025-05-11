@@ -36,7 +36,7 @@ export default function Home() {
           <h1 className="text-4xl font-bold text-primary mb-2">Welcome to CARAL</h1>
           <div className="text-lg text-gray-600 max-w-2xl mx-auto">
             <p className="mb-2">
-              We're here to help your business navigate data protection, data governance, and responsible data practices. You can ask us about:
+              We&apos;re here to help your business navigate data protection, data governance, and responsible data practices. You can ask us about:
             </p>
             <ul className="list-disc list-inside mb-2 text-left">
               <li>GDPR and data protection</li>
@@ -107,7 +107,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-8 pt-8 border-t text-center text-sm text-gray-600">
-            <p>© 2024 Caral. All rights reserved.</p>
+            <p>© 2025 Caral. All rights reserved.</p>
           </div>
         </div>
       </footer>

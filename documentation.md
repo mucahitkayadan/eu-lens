@@ -68,6 +68,7 @@ Required environment variables:
 6. Updated UI to display source documents
 7. Improved response quality with structured guidelines
 8. Updated homepage H1 and introductory paragraph in `src/app/page.tsx`.
+9. Fixed ESLint `react/no-unescaped-entities` error in `src/app/page.tsx` by escaping an apostrophe.
 
 ## Current Status
 - Development server running on http://localhost:3000
