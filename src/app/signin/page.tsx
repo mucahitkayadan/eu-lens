@@ -11,7 +11,7 @@ import {
   User
 } from 'firebase/auth';
 import Link from 'next/link';
-import { UserCircleIcon, ScaleIcon } from '@heroicons/react/24/outline'; // Assuming you might want icons
+import { ScaleIcon } from '@heroicons/react/24/outline';
 
 export default function SignInPage() {
   const [email, setEmail] = useState('');
@@ -43,8 +43,12 @@ export default function SignInPage() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       // onAuthStateChanged will redirect
-    } catch (err: any) {
-      setError(err.message || "Failed to sign in. Please check your credentials.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || "Failed to sign in. Please check your credentials.");
+      } else {
+        setError("An unexpected error occurred during email sign-in.");
+      }
       console.error("Email sign-in error:", err);
     } finally {
       setLoading(false);
@@ -58,8 +62,12 @@ export default function SignInPage() {
     try {
       await signInWithPopup(auth, provider);
       // onAuthStateChanged will redirect
-    } catch (err: any) {
-      setError(err.message || "Failed to sign in with Google.");
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || "Failed to sign in with Google.");
+      } else {
+        setError("An unexpected error occurred during Google sign-in.");
+      }
       console.error("Google sign-in error:", err);
     } finally {
       setLoading(false);
@@ -170,7 +178,7 @@ export default function SignInPage() {
 
         <div className="mt-6 text-center text-sm">
           <p className="text-gray-600">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link href="/register" className="font-medium text-primary hover:text-secondary">
               Sign Up
             </Link>
