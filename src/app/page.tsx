@@ -10,7 +10,7 @@ export default function Home() {
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center space-x-2">
               <ScaleIcon className="h-8 w-8 text-primary" />
-              <span className="text-xl font-semibold text-primary">EU-Lens</span>
+              <span className="text-xl font-semibold text-primary">Caral</span>
             </div>
             <div className="hidden md:flex items-center space-x-8">
               <a href="#" className="text-gray-600 hover:text-primary flex items-center space-x-1">
@@ -68,7 +68,7 @@ export default function Home() {
         <div className="container mx-auto px-4 py-8">
           <div className="grid md:grid-cols-4 gap-8">
             <div>
-              <h4 className="font-semibold mb-4">About EU-Lens</h4>
+              <h4 className="font-semibold mb-4">About Caral</h4>
               <p className="text-sm text-gray-600">Your AI-powered assistant for understanding EU laws and regulations.</p>
             </div>
             <div>
@@ -97,7 +97,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-8 pt-8 border-t text-center text-sm text-gray-600">
-            <p>© 2024 EU-Lens. All rights reserved.</p>
+            <p>© 2024 Caral. All rights reserved.</p>
           </div>
         </div>
       </footer>

@@ -169,7 +169,7 @@ const program = new Command()
 
 program
   .name('ingest-document')
-  .description('Ingest a document into the EU-Lens vector database')
+  .description('Ingest a document into the Caral vector database')
   .requiredOption('-u, --url <url>', 'URL of the document to ingest')
   .requiredOption('-n, --name <name>', 'Name of the document')
   .action(async (options: CommandOptions) => {

@@ -1,7 +1,7 @@
-# EU-Lens Project Documentation
+# Caral Project Documentation
 
 ## Project Overview
-EU-Lens is a Next.js application that provides an AI-powered legal assistant specialized in EU law. The application uses OpenAI's GPT-4 for natural language processing and Pinecone for vector similarity search to provide accurate responses based on legal documents.
+Caral is a Next.js application that provides an AI-powered legal assistant specialized in EU law. The application uses OpenAI's GPT-4 for natural language processing and Pinecone for vector similarity search to provide accurate responses based on legal documents.
 
 ## Technical Stack
 - Next.js 14.1.0
@@ -94,7 +94,7 @@ The project is version controlled using Git, with the following structure:
 ### Pinecone Vector Database Setup
 1. Create an account at https://app.pinecone.io/
 2. Create a new index with these settings:
-   - Name: `eu-lens` (or your preferred name)
+   - Name: `Caral` (or your preferred name)
    - Dimensions: `1536` (matches OpenAI ada-002 embeddings)
    - Metric: `cosine`
    - Pod Type: `starter`
@@ -245,7 +245,7 @@ The project is configured with GitHub Actions for automatic deployment to Vercel
    - Visit [Vercel](https://vercel.com) and sign up/login with your GitHub account
    - Click "Import Project"
    - Select "Import Git Repository"
-   - Choose your eu-lens repository
+   - Choose your Caral repository
    - Vercel will automatically detect Next.js
 
 3. **Configure Environment Variables**
@@ -262,7 +262,7 @@ The project is configured with GitHub Actions for automatic deployment to Vercel
 4. **Deploy**
    - Click "Deploy"
    - Vercel will build and deploy your application
-   - You'll get a production URL (e.g., `eu-lens.vercel.app`)
+   - You'll get a production URL (e.g., `Caral.vercel.app`)
 
 ### Free Tier Limitations
 - 100GB bandwidth per month

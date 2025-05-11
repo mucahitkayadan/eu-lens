@@ -1,6 +1,6 @@
-# EU-Lens
+# Caral
 
-EU-Lens is an AI-powered legal assistant that helps users understand and navigate EU laws and regulations. The application provides accurate answers to legal questions by referencing official EU legal documents.
+Caral is an AI-powered legal assistant that helps users understand and navigate EU laws and regulations. The application provides accurate answers to legal questions by referencing official EU legal documents.
 
 ## Features
 
@@ -31,8 +31,8 @@ EU-Lens is an AI-powered legal assistant that helps users understand and navigat
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/mucahitkayadan/eu-lens.git
-   cd eu-lens
+   git clone https://github.com/mucahitkayadan/Caral.git
+   cd Caral
    ```
 
 2. Install dependencies:
@@ -69,7 +69,7 @@ The application will be available at `http://localhost:3000`.
 ### Project Structure
 
 ```
-eu-lens/
+Caral/
 ├── src/
 │   ├── app/
 │   │   ├── api/

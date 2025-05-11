@@ -13,7 +13,7 @@ const crimson = Crimson_Pro({
 })
 
 export const metadata: Metadata = {
-  title: 'EU-Lens - Legal Assistant',
+  title: 'Caral - Legal Assistant',
   description: 'Your AI-powered assistant for EU legal questions',
 }
 

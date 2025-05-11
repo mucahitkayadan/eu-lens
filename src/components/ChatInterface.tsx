@@ -103,7 +103,7 @@ export function ChatInterface() {
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-gray-500 space-y-4">
             <div className="p-4 bg-white rounded-lg shadow-sm max-w-md">
-              <h3 className="font-semibold text-primary mb-2">Welcome to EU-Lens!</h3>
+              <h3 className="font-semibold text-primary mb-2">Welcome to Caral!</h3>
               <p className="text-sm">
                 I&apos;m your AI legal assistant specialized in EU law. You can ask me about:
               </p>
