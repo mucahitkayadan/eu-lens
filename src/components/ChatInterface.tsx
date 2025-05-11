@@ -112,8 +112,8 @@ export function ChatInterface() {
                 <li>EU data governance</li>
                 <li>Privacy compliance</li>
               </ul>
-              <p className="text-sm mt-2">
-                Ask your question — and get practical, privacy-focused answers built for your business.
+              <p className="text-base font-semibold mt-3">
+                Ask your question. Get practical answers built for your business.
               </p>
             </div>
           </div>

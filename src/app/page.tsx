@@ -33,7 +33,10 @@ export default function Home() {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
         <header className="mb-8 text-center">
-          <h1 className="text-4xl font-bold text-primary mb-2">Get instant answers to your EU Privacy & Data Governance questions powered by AI and backed by official sources and experts</h1>
+          <h1 className="text-4xl font-bold text-primary mb-2">WELCOME TO CARAL!</h1>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Get instant answers to your EU Privacy and Data Governance questions, powered by AI and backed by official sources and experts
+          </p>
         </header>
         
         <div className="max-w-5xl mx-auto">

@@ -71,6 +71,8 @@ Required environment variables:
 9. Fixed ESLint `react/no-unescaped-entities` error in `src/app/page.tsx` by escaping an apostrophe.
 10. Reverted homepage H1 and introductory paragraph in `src/app/page.tsx` to a single H1 statement: "Get instant answers to your EU Privacy & Data Governance questions powered by AI and backed by official sources and experts".
 11. Updated the default welcome message in `src/components/ChatInterface.tsx` to align with new branding and focus.
+12. Updated 'Outside' text (`src/app/page.tsx`): H1 to "WELCOME TO CARAL!" (blue) and added a smaller paragraph below it.
+13. Updated 'Inside' text (`src/components/ChatInterface.tsx`): Changed the final paragraph of the initial chat message to be bolder and bigger, with revised text.
 
 ## Current Status
 - Development server running on http://localhost:3000
